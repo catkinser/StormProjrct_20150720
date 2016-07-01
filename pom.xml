@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.xxo</groupId>
-  <artifactId>StormProjrct_20160620</artifactId>
+  <artifactId>StormProjrct_20150720</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>StormProjrct_20160620</name>
+  <name>StormProjrct_20150720</name>
   <url>http://maven.apache.org</url>
 
   <properties>
