@@ -13,9 +13,9 @@ import org.apache.commons.dbutils.handlers.ArrayListHandler;
 
 public final class MyDbUtils {// 拒绝继承
 	private static String className = "com.mysql.jdbc.Driver";
-	private static String url = "jdbc:mysql://127.0.0.1:3307/crxy1?useUnicode=true&amp;characterEncoding=utf-8";
-	private static String user = "crxy";
-	private static String password = "crxy";
+	private static String url = "jdbc:mysql://127.0.0.1:3307/xxo1?useUnicode=true&amp;characterEncoding=utf-8";
+	private static String user = "xxo";
+	private static String password = "xxo";
 	private static QueryRunner queryRunner = new QueryRunner();
 
 	public static final String INSERT_LOG = "INSERT INTO LOG(topdomain,usetime,time) VALUES(?,?,?)";

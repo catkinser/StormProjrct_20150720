@@ -20,7 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by xiaoxiaomo on 2016/6/20.
+ * Created by xiaoxiaomo on 2015/6/20.
  */
 public class LogFilterBolt extends BaseRichBolt{
 

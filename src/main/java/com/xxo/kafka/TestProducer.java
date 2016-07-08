@@ -9,7 +9,7 @@ import kafka.serializer.StringEncoder;
 
 /**
  * 生产者
- * Created by xiaoxiaomo on 2016/6/20.
+ * Created by xiaoxiaomo on 2015/6/20.
  */
 public class TestProducer {
 	public static void main(String[] args) {

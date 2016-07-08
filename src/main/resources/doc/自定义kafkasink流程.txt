@@ -1,9 +1,9 @@
-ÓÉÓÚflume1.5.2ÖĞÃ»ÓĞÌá¹©kafkasink£¬ËùÒÔĞèÒª×Ô¶¨Òå
-1£º²é¿´flumeµÄ¿ª·¢ÎÄµµ£¬ÕÒµ½sinkµÄÎ»ÖÃ£¬Ìá¹©µÄÓĞ×Ô¶¨ÒåsinkµÄ´úÂë£¬²Î¿¼ÎÄµµÖĞµÄ´úÂëÍêÉÆkafkasink¡£
+ç”±äºflume1.5.2ä¸­æ²¡æœ‰æä¾›kafkasinkï¼Œæ‰€ä»¥éœ€è¦è‡ªå®šä¹‰
+1ï¼šæŸ¥çœ‹flumeçš„å¼€å‘æ–‡æ¡£ï¼Œæ‰¾åˆ°sinkçš„ä½ç½®ï¼Œæä¾›çš„æœ‰è‡ªå®šä¹‰sinkçš„ä»£ç ï¼Œå‚è€ƒæ–‡æ¡£ä¸­çš„ä»£ç å®Œå–„kafkasinkã€‚
 
-2£º×Ô¶¨ÒåÀàkafkasink
-¾ßÌå´úÂëÈçÏÂ£º
-package cn.crxy.kafka;
+2ï¼šè‡ªå®šä¹‰ç±»kafkasink
+å…·ä½“ä»£ç å¦‚ä¸‹ï¼š
+package com.xxo.kafka;
 
 import java.util.Properties;
 
@@ -23,14 +23,14 @@ import org.apache.flume.sink.AbstractSink;
 public class KafkaSink extends AbstractSink implements Configurable {
 	private Producer<String, String> producer;
 	/**
-	 * ³õÊ¼»¯·½·¨£¬Ö»»áÖ´ĞĞÒ»´Î
+	 * åˆå§‹åŒ–æ–¹æ³•ï¼Œåªä¼šæ‰§è¡Œä¸€æ¬¡
 	 */
 	@Override
 	public void configure(Context context) {
 		Properties prop = new Properties();
 		prop.put("metadata.broker.list", "192.168.1.172:9092");
 		prop.put("serializer.class", StringEncoder.class.getName());
-		
+
 		ProducerConfig producerConfig = new ProducerConfig(prop );
 		producer = new Producer<String,String>(producerConfig);
 	}
@@ -44,20 +44,20 @@ public class KafkaSink extends AbstractSink implements Configurable {
 	}
 
 	/**
-	 * Ö÷ÒªÊÇÕâ¸ö·½·¨£¬¸ºÔğÏòÍâĞ´Êı¾İ
+	 * ä¸»è¦æ˜¯è¿™ä¸ªæ–¹æ³•ï¼Œè´Ÿè´£å‘å¤–å†™æ•°æ®
 	 */
 	@Override
 	public Status process() throws EventDeliveryException {
 		Status status = null;
-		// ¿ªÆô¹ÜµÀ
+		// å¼€å¯ç®¡é“
 		Channel ch = getChannel();
-		// »ñÈ¡¡¢¿ªÆôÊÂÎñ
+		// è·å–ã€å¼€å¯äº‹åŠ¡
 		Transaction txn = ch.getTransaction();
 		txn.begin();
 		try {
-			//´ÓchannelÖĞ»ñÈ¡Ò»¸öevent£¬ Êı¾İÊÇ·â×°µ½Õâ¸öeventÖĞ
+			//ä»channelä¸­è·å–ä¸€ä¸ªeventï¼Œ æ•°æ®æ˜¯å°è£…åˆ°è¿™ä¸ªeventä¸­
 			Event event = ch.take();
-			//Õë¶ÔeventµÈÓÚnullµÄÇé¿ö½øĞĞÅĞ¶Ï
+			//é’ˆå¯¹eventç­‰äºnullçš„æƒ…å†µè¿›è¡Œåˆ¤æ–­
 			if(event==null){
 				txn.rollback();
 				status = Status.BACKOFF;
@@ -84,43 +84,39 @@ public class KafkaSink extends AbstractSink implements Configurable {
 
 
 
-3£ºÔÚĞ´Õâ¸ö´úÂëµÄÊ±ºòĞèÒªÌí¼ÓflumeµÄÒÀÀµ£º
+3ï¼šåœ¨å†™è¿™ä¸ªä»£ç çš„æ—¶å€™éœ€è¦æ·»åŠ flumeçš„ä¾èµ–ï¼š
 	<dependency>
 			<groupId>org.apache.flume</groupId>
 			<artifactId>flume-ng-core</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-		
-		
-4£ºÈ»ºó°ÑkafkasinkÕâ¸öÀàµ¼³ö³ÉÒ»¸öjar°ü¡£
 
-5£º°ÑÕâ¸öjar°üÉÏ´«µ½flume1.5.2µÄlibÄ¿Â¼ÏÂ
 
-6£ºĞŞ¸ÄflumeµÄÅäÖÃÎÄ¼şÈçÏÂ£º
+4ï¼šç„¶åæŠŠkafkasinkè¿™ä¸ªç±»å¯¼å‡ºæˆä¸€ä¸ªjaråŒ…ã€‚
+
+5ï¼šæŠŠè¿™ä¸ªjaråŒ…ä¸Šä¼ åˆ°flume1.5.2çš„libç›®å½•ä¸‹
+
+6ï¼šä¿®æ”¹flumeçš„é…ç½®æ–‡ä»¶å¦‚ä¸‹ï¼š
 agent1.channels = ch1
 agent1.sources = avro-source1
 agent1.sinks = log-sink1
 
-# ¶¨Òåchannel
+# å®šä¹‰channel
 agent1.channels.ch1.type = memory
 
-# ¶¨Òåsource
+# å®šä¹‰source
 agent1.sources.avro-source1.channels = ch1
 agent1.sources.avro-source1.type = avro
 agent1.sources.avro-source1.bind = 0.0.0.0
 agent1.sources.avro-source1.port = 41414
 
-# ¶¨Òåsink£¬
+# å®šä¹‰sinkï¼Œ
 agent1.sinks.log-sink1.channel = ch1
-agent1.sinks.log-sink1.type = cn.crxy.kafka.KafkaSink
-#×¢Òâ£¬ÔÚÕâÖ¸¶¨µÄÊÇ×Ô¶¨ÒåkafkasinkÀàµÄÈ«ÀàÃû
+agent1.sinks.log-sink1.type = com.xxo.kafka.KafkaSink
+#æ³¨æ„ï¼Œåœ¨è¿™æŒ‡å®šçš„æ˜¯è‡ªå®šä¹‰kafkasinkç±»çš„å…¨ç±»å
 
-7£ºÓÉÓÚÈ±ÉÙkafkaµÄÒÀÀµ£¬×î¿¿Æ×µÄÊÇ°Ñkafka_2.11-0.8.2.2/libÄ¿Â¼ÏÂµÄËùÓĞjar°ü¶¼¿½±´µ½flume1.5.2µÄlibÄ¿Â¼ÏÂ
+7ï¼šç”±äºç¼ºå°‘kafkaçš„ä¾èµ–ï¼Œæœ€é è°±çš„æ˜¯æŠŠkafka_2.11-0.8.2.2/libç›®å½•ä¸‹çš„æ‰€æœ‰jaråŒ…éƒ½æ‹·è´åˆ°flume1.5.2çš„libç›®å½•ä¸‹
 	cp kafka_2.11-0.8.2.2/lib/*.jar flume1.5.2/lib
-8£ºÆô¶¯agent·şÎñ¼´¿É¡£
-
-
-
-
+8ï¼šå¯åŠ¨agentæœåŠ¡å³å¯ã€‚
 
 
